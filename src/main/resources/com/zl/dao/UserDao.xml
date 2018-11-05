@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper namespace="com.zl.dao.UserDao">
+    <!--根据id查询-->
+    <select id="findById" parameterType="int" resultType="com.zl.domain.User">
+        SELECT * FROM user WHERE id=#{pid}
+    </select>
+    <!--查询所有用户-->
+    <select id="findAll" resultType="com.zl.domain.User">
+        SELECT * FROM user
+    </select>
+    <!--查询总用户数-->
+    <select id="findCount" resultType="int">
+        SELECT COUNT(*) FROM user
+    </select>
+    <!--模糊查询-->
+    <select id="findByName" parameterType="string" resultType="user">
+        SELECT * FROM user WHERE username like #{name}
+    </select>
+    <!--增加用户-->
+    <insert id="save" parameterType="user">
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO user(username, birthday, sex, address)
+        VALUES(#{username}, #{birthday}, #{sex}, #{address})
+    </insert>
+    <!--删除用户-->
+    <delete id="delete" parameterType="int">
+        DELETE FROM user WHERE id = #{id}
+    </delete>
+    <!--修改用户-->
+    <update id="update" parameterType="user">
+        UPDATE user SET id=#{id},username=#{username},birthday=#{birthday},sex=#{sex},address=#{address}
+    </update>
+</mapper>

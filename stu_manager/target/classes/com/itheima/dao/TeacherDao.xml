@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.dao.TeacherDao">
+    <resultMap id="teacherMap" type="teacher">
+        <id property="tno" column="tno"></id>
+        <result property="tname" column="tname"></result>
+        <result property="tSex" column="tSex"></result>
+        <result property="tAge" column="tAge"></result>
+        <collection property="courses" column="tname" ofType="course" select="com.itheima.dao.CourseDao.findByTno">
+        </collection>
+    </resultMap>
+    <!--多表查询-->
+    <select id="findAll" resultMap="teacherMap">
+        SELECT * FROM tb_teacher
+    </select>
+</mapper>

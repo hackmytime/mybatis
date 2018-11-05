@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mapper namespace="com.zl.dao.StudentDao">
+    <!--添加学生-->
+    <insert id="save" parameterType="student">
+        <selectKey keyProperty="sid" resultType="string" order="BEFORE">
+            SELECT uuID()
+        </selectKey>
+        INSERT INTO student VALUES(#{sid},#{uname},#{age})
+    </insert>
+</mapper>
